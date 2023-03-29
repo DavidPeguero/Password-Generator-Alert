@@ -1,7 +1,7 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-
+// All the symbols that I will add to possible characters if they are wanted 
 var uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
 var numericChars = '0123456789';
