@@ -7,43 +7,64 @@ var lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
 var numericChars = '0123456789';
 var specialChars = ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
-var generatePassword = function(pLength){
-  return pLength;
+var generatePassword = function(pLength, possibleChars){
+  var password = ''
+
+  //Get a random char from the list of possible chars until it is as long as the desired password length
+  for(var i = 0; i < pLength; i++){
+    password = password + possibleChars.charAt(Math.floor(Math.random() * possibleChars.length))
+  }
+
+  return password
 }
+
 
 // Write password to the #password input
 function writePassword() {
 
   //Ask user for the desired length of password
-  var pLength = prompt("Enter desired length for password (8-128)");
-  
+  let pLength = prompt("Enter desired length for password (8-128)");
+  console.log(pLength);
+  //Check if valid length
+  if(pLength < 8 || pLength > 128){
+    alert("Not a valid length");
+    return;
+  }
   //Variable for storing the possible character
-  var possibleChars = "";
+  let possibleChars = "";
   //Ask user for the character types they want
-  var hasUppercase = confirm("Do you want your password to contain uppercase characters?")
-  var hasLowercase = confirm("Do you want your password to contain lowercase characters?");
-  var hasNumeric = confirm("Do you want your password to contain numeric characters?");
-  var hasSpecial = confirm("Do you want your password to contain special characters?");
+  let hasUppercase = confirm("Do you want your password to contain uppercase characters?")
+  let hasLowercase = confirm("Do you want your password to contain lowercase characters?");
+  let hasNumeric = confirm("Do you want your password to contain numeric characters?");
+  let hasSpecial = confirm("Do you want your password to contain special characters?");
 
+  //Adds chars if they are confimed in the confirm window
   if(hasUppercase){
-    possibleChars.concat(uppercaseChars);
+    possibleChars = possibleChars + uppercaseChars;
   }
   if(hasLowercase){
-    possibleChars.concat(lowercaseChars);
+    possibleChars = possibleChars + lowercaseChars;
   }
   if(hasNumeric){
-    possibleChars.concat(numericChars);
+    possibleChars = possibleChars + numericChars;
   }
   if(hasSpecial){
-    possibleChars.concat(specialChars);
+    possibleChars = possibleChars + specialChars;
   }
 
-  
+  console.log(possibleChars);
 
-  var password = generatePassword(pLength);
-  var passwordText = document.querySelector("#password");
+  //If none are chose then alert and returns the 
+  if(possibleChars.length === 0){
+    alert("No characters chosen");
+    return;
+  }
+  else{
+    var password = generatePassword(pLength, possibleChars);
+    var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+    passwordText.value = password;
+  }
 
 }
 
