@@ -5,16 +5,61 @@ var generateBtn = document.querySelector("#generate");
 var uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
 var numericChars = '0123456789';
-var specialChars = ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+var specialChars = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
+//RegExp for character sets
+var upperReg = /[A-Z]/
+
+
+function checkUppercase(password){
+  return /[A-Z]+/.test(password);
+}
+
+function checkLowercase(password){
+  return /[a-z]/.test(password);
+}
+
+function checkNumeric(password){
+  return /[0-9]+/.test(password);
+}
+
+function checkSymbol(password){
+  return /\W+/.test(password);
+}
 
 //Function that generates the password given length and possible characters
-var generatePassword = function(pLength, possibleChars){
+var generatePassword = function(pLength, possibleChars, hasUppercase, hasLowercase, hasNumeric, hasSpecial){
   var password = ''
+  var passwordReqsMet = false;
+  var tries = 0;
+  while(!passwordReqsMet){
 
-  //Get a random char from the list of possible chars until it is as long as the desired password length
-  for(var i = 0; i < pLength; i++){
-    password = password + possibleChars.charAt(Math.floor(Math.random() * possibleChars.length))
+    //Reset password every failed try
+    password = '';
+    //Get a random char from the list of possible chars until it is as long as the desired password length
+    for(var i = 0; i < pLength; i++){
+      password = password + possibleChars.charAt(Math.floor(Math.random() * possibleChars.length))
+    }
+    tries++;
+    console.log(tries);
+    //Check if it has the desired character types in password otherwise continue while loop
+    //until you create a valid password
+    if(hasUppercase){
+      passwordReqsMet = checkUppercase(password);
+      continue;
+    }
+    if(hasLowercase){
+      passwordReqsMet = checkLowercase(password);
+      continue;
+    }
+    if(hasNumeric){
+      passwordReqsMet = checkNumeric(password);
+      continue;
+    }
+    if(hasSpecial){
+      passwordReqsMet = checkSpecial(password);
+      continue;
+    }
   }
 
   return password
@@ -26,7 +71,7 @@ function writePassword() {
 
   //Ask user for the desired length of password
   let pLength = prompt("Enter desired length for password (8-128)");
-  console.log(pLength);
+  // console.log(pLength);
   //Check if valid length
   if(pLength < 8 || pLength > 128){
     alert("Not a valid length");
@@ -63,7 +108,7 @@ function writePassword() {
   }
   //If no errors are brought up generate the password
   else{
-    var password = generatePassword(pLength, possibleChars);
+    var password = generatePassword(pLength, possibleChars, hasUppercase, hasLowercase, hasNumeric, hasSpecial);
     var passwordText = document.querySelector("#password");
 
     passwordText.value = password;
@@ -73,3 +118,4 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
