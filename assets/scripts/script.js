@@ -7,6 +7,8 @@ var lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
 var numericChars = '0123456789';
 var specialChars = ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
+
+//Function that generates the password given length and possible characters
 var generatePassword = function(pLength, possibleChars){
   var password = ''
 
@@ -54,11 +56,12 @@ function writePassword() {
 
   console.log(possibleChars);
 
-  //If none are chose then alert and returns the 
+  //If none are chose then alert and return to stop the function
   if(possibleChars.length === 0){
     alert("No characters chosen");
     return;
   }
+  //If no errors are brought up generate the password
   else{
     var password = generatePassword(pLength, possibleChars);
     var passwordText = document.querySelector("#password");
