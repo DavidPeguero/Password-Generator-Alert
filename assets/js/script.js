@@ -39,24 +39,32 @@ var generatePassword = function(pLength, possibleChars, hasUppercase, hasLowerca
       password = password + possibleChars.charAt(Math.floor(Math.random() * possibleChars.length))
     }
     tries++;
-    console.log(tries);
+    console.log(`Number of tries : ${tries}`);
     //Check if it has the desired character types in password otherwise continue while loop
     //until you create a valid password
     if(hasUppercase){
       passwordReqsMet = checkUppercase(password);
-      continue;
+      if(!passwordReqsMet){
+        continue;
+      }
     }
     if(hasLowercase){
       passwordReqsMet = checkLowercase(password);
-      continue;
-    }
+      if(!passwordReqsMet){
+        continue
+      }
+    } 
     if(hasNumeric){
       passwordReqsMet = checkNumeric(password);
-      continue;
+      if(!passwordReqsMet){
+        continue
+      }
     }
     if(hasSpecial){
-      passwordReqsMet = checkSpecial(password);
-      continue;
+      passwordReqsMet = checkSymbol(password);
+      if(!passwordReqsMet){
+        continue
+      }
     }
   }
 

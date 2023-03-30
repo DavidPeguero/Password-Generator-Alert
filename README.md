@@ -3,6 +3,8 @@
 ## Descrition
 Creates a password to the user specifications
 
+You can access the page [here](https://davidpeguero.github.io/Password-Generator-Alert/)
+
 ### Screnshots
 ![](./assets/images/pw-gen.png)
 
