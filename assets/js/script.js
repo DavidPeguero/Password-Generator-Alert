@@ -7,10 +7,8 @@ var lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
 var numericChars = '0123456789';
 var specialChars = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
-//RegExp for character sets
-var upperReg = /[A-Z]/
 
-
+//Functions that check for at least 1 symbol of their respective type in a string
 function checkUppercase(password){
   return /[A-Z]+/.test(password);
 }
